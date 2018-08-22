@@ -9,6 +9,7 @@ public class Answer : MonoBehaviour {
     private Rigidbody2D mybody;
     private Vector2 vec = new Vector2(0, -3f );
     public Canvas myCanvas;
+    public int color;
     private Text trueText;
     private void Awake()
     {

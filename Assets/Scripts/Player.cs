@@ -9,18 +9,19 @@ public class Player : MonoBehaviour {
     private float moveSpeedMouse = 0.1f;
     private Vector2 velocity = new Vector2(0, 0);
     Rigidbody2D mybody;
+    public int color;
     // Use this for initialization
     void Awake()
     {
         mySprite = gameObject.GetComponent<SpriteRenderer>();
-        _setColor();
+        
         mybody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void _setColor()
+    public void _setColor()
     {
         mySprite.color = Trap.arrColor[Controller.instance.mau1];
-
+        color = Controller.instance.mau1;
     }
 
 
@@ -33,9 +34,9 @@ public class Player : MonoBehaviour {
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             // transform.position = Vector2.Lerp(transform.position, temp, moveSpeedMouse);
-            if(Mathf.Abs(mousePosition.x - transform.position.x) > 0.5)
+            if(Mathf.Abs(mousePosition.x - transform.position.x) > 0.3f)
             {
-                velocity.x = mousePosition.x * 7;
+                velocity.x = (mousePosition.x - gameObject.transform.position.x)* 15;
             }
             else
             {
@@ -54,12 +55,14 @@ public class Player : MonoBehaviour {
         if(collision.gameObject.tag == "newAnswer")
         {
             Answer ans = collision.gameObject.GetComponent<Answer>();
-            if(ans.right == Controller.instance._getBool())
+            if(ans.right == Controller.instance._getBool() && color == ans.color)
             {
                 Destroy(collision.gameObject);
                 Controller.instance._setRandomMath(Controller.instance.mathText);
                 _setColor();
-
+                Controller.instance.score += 1;
+                Trap trap = ans.gameObject.GetComponentInParent<Trap>();
+                trap.instance.changeTag(trap.instance.answerArr);
             }
             else {
                 Controller.instance.Lose();

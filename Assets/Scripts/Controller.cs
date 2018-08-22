@@ -7,10 +7,17 @@ public class Controller : MonoBehaviour {
     public bool answerTrue;
     public LosePanel losePanel;
     public int mau1, mau2;
+    public Player player;
+    public Text scoreText;
+    public int score;
+    public Text scoreEndGame;
+    public Text BestScore;
 	// Use this for initialization
 	void Awake () {
+        score = 0;
         _makeInstance();
         _setRandomMath(mathText);
+        player._setColor();
 	}
 	public bool _getBool()
     {
@@ -37,7 +44,6 @@ public class Controller : MonoBehaviour {
          b = Random.Range(0, 20);
         // random c
         right = Random.Range(0f, 1f);
-        Debug.Log("right la : " + right);
         if(right >= 0.5)
         {
             c = x == 1 ? a + b : a - b;
@@ -57,11 +63,27 @@ public class Controller : MonoBehaviour {
 
     public void Lose()
     {
+        scoreEndGame.text = "" + score;
         Time.timeScale = 0;
+        int oldBestScore = ScoreManager.instance.getHighScore();
+        if (score > oldBestScore)
+        {
+            ScoreManager.instance.setHighScore(score);
+        }
+
         losePanel.gameObject.SetActive(true);
+        BestScore.text = "" + ScoreManager.instance.getHighScore();
+    }
+
+    public void _returnGame()
+    {
+        
+        Application.LoadLevel("GAmePlay");
+        Time.timeScale = 1;
     }
 
 	void Update () {
-		
-	}
+        scoreText.text ="" + score;
+
+    }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - destroy
   - newAnswer
+  - oldAnswer
   layers:
   - Default
   - TransparentFX

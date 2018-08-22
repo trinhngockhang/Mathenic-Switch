@@ -208,6 +208,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   right: 0
   myCanvas: {fileID: 223103039696623010}
+  color: 0
 --- !u!212 &212467381836321410
 SpriteRenderer:
   m_ObjectHideFlags: 1
