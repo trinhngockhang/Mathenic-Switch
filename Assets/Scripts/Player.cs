@@ -4,17 +4,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class Player : MonoBehaviour {
 
-
+    public SpriteRenderer mySprite;
     private Vector3 mousePosition;
     private float moveSpeedMouse = 0.1f;
     private Vector2 velocity = new Vector2(0, 0);
     Rigidbody2D mybody;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        
+        mySprite = gameObject.GetComponent<SpriteRenderer>();
+        _setColor();
         mybody = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    void _setColor()
+    {
+        mySprite.color = Trap.arrColor[Controller.instance.mau1];
+
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -40,5 +48,22 @@ public class Player : MonoBehaviour {
             velocity.x = 0;
         }
         mybody.velocity = velocity;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "newAnswer")
+        {
+            Answer ans = collision.gameObject.GetComponent<Answer>();
+            if(ans.right == Controller.instance._getBool())
+            {
+                Destroy(collision.gameObject);
+                Controller.instance._setRandomMath(Controller.instance.mathText);
+                _setColor();
+
+            }
+            else {
+                Controller.instance.Lose();
+            }
+        }
     }
 }

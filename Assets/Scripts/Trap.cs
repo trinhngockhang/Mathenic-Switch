@@ -10,15 +10,22 @@ public class Trap : MonoBehaviour {
     private Answer answer3;
     private Answer answer4;
    
-    
+    // blue,tim,do,vang,xanh la
     private Rigidbody2D mybody;
-    private Color[] arrColor = { new Color(0, 1, 1, 1),new Color(204, 0, 206, 1), new Color(0.5f, 0.5f, 0.5f, 1),
-        new Color(1, 0.92f, 0.016f, 1)};
+    // tim
+    public static Color color1 = new Color(0.608f, 0.035f, 1, 1);
+    // vang
+    public static Color color2 = new Color(0.961f, 0.863f, 0.352f, 1);
+    //do
+    public static Color color3 = new Color(1, 0, 0.267f, 1);
+    //xanh blue
+    public static Color color4 = new Color(0.208f, 0.886f, 0.949f, 1);
+    public static Color[] arrColor = { color1,color2,color3,color4 };
     void Awake()
     {
-       
-        int x = Random.Range(0, arrColor.Length-1);
-        int y = Random.Range(0, arrColor.Length - 1);
+
+        int x = Controller.instance.mau1;
+        int y = Controller.instance.mau2;
         if(y == x)
         {
             if( x != arrColor.Length - 1)
@@ -34,15 +41,15 @@ public class Trap : MonoBehaviour {
         Debug.Log("2 mau dc chon la: " + x + "  " + y);
 
         mybody = gameObject.GetComponent<Rigidbody2D>();
-        Vector2 temp = new Vector2(-2.252f, 5);
+        Vector2 temp = new Vector2(-2.25f, 5);
         answer1 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.529f;
+        temp.x += 1.51f;
         answer2 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.529f;
+        temp.x += 1.51f;
         answer3 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.529f;
+        temp.x += 1.51f;
         answer4 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.529f;
+        temp.x += 1.51f;
         answer1.transform.parent = gameObject.transform;
         answer2.transform.parent = gameObject.transform;
         answer3.transform.parent = gameObject.transform;

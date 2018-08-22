@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public class Answer : MonoBehaviour {
     public SpriteRenderer sprite;
     public bool right = true;
@@ -38,8 +38,7 @@ public class Answer : MonoBehaviour {
         }
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "destroy")
         {
