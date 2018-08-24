@@ -24,6 +24,7 @@ public class Trap : MonoBehaviour {
     public Answer[] answerArr = new Answer[5];
     void Awake()
     {
+        float f = 1.40f;
         _makeInstance();
         int x = Controller.instance.mau1;
         int y = Controller.instance.mau2;
@@ -41,15 +42,15 @@ public class Trap : MonoBehaviour {
         //-2.24,-0.71,0.8,2.29
 
         mybody = gameObject.GetComponent<Rigidbody2D>();
-        Vector2 temp = new Vector2(-2.25f, 5);
+        Vector2 temp = new Vector2(-2.11f, 5);
         answer1 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.51f;
+        temp.x += f;
         answer2 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.51f;
+        temp.x += f;
         answer3 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.51f;
+        temp.x += f;
         answer4 = Instantiate(answerModel, temp, Quaternion.identity);
-        temp.x += 1.51f;
+        temp.x += f;
         answer1.transform.parent = gameObject.transform;
         answer2.transform.parent = gameObject.transform;
         answer3.transform.parent = gameObject.transform;

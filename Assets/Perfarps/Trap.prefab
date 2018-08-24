@@ -77,5 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e11d5c013f6a54c897be85dad41588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answerModel: {fileID: 114975683710425514, guid: a754848d0f9be7b48853fa64d3e4d304,
+  instance: {fileID: 0}
+  answerModel: {fileID: 114828992382159822, guid: 0a00fad81ddbd7443a40d0328a11d9ec,
     type: 2}
+  answerArr:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

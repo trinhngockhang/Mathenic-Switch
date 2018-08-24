@@ -7,7 +7,7 @@ public class Answer : MonoBehaviour {
     public SpriteRenderer sprite;
     public bool right = true;
     private Rigidbody2D mybody;
-    private Vector2 vec = new Vector2(0, -3f );
+    
     public Canvas myCanvas;
     public int color;
     private Text trueText;
@@ -19,7 +19,7 @@ public class Answer : MonoBehaviour {
         sprite = gameObject.GetComponent<SpriteRenderer>();
     }
     void Update () {
-        mybody.velocity = vec;   	
+        mybody.velocity = Controller.instance.vec;   	
 	}
 
     public void _setRightFalse()

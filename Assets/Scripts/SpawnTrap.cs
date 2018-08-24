@@ -14,7 +14,7 @@ public class SpawnTrap : MonoBehaviour {
 
     IEnumerator Spawner()
     {
-        float rand = Random.Range(3f, 5f);
+        float rand = 3f;
         if (first == true)
         {
             rand = 1f;
@@ -24,5 +24,6 @@ public class SpawnTrap : MonoBehaviour {
         Vector2 temp = new Vector2(0, 5.53f);
         Instantiate(Trap, temp, Quaternion.identity);
         StartCoroutine(Spawner());
+        Controller.instance.vec.y -= 0.09f;
     }
 }

@@ -12,8 +12,10 @@ public class Controller : MonoBehaviour {
     public int score;
     public Text scoreEndGame;
     public Text BestScore;
-	// Use this for initialization
-	void Awake () {
+    public Text MathTextEndGame;
+    public Vector2 vec = new Vector2(0, -3f);
+    // Use this for initialization
+    void Awake () {
         score = 0;
         _makeInstance();
         _setRandomMath(mathText);
@@ -33,7 +35,7 @@ public class Controller : MonoBehaviour {
         int a, b, c;
         int randCMin,randCMax;
         int offset;
-        float right;
+        float right,equal;
         string t; // + or -
         // random t
         int x = Random.Range(0, 1);
@@ -44,25 +46,59 @@ public class Controller : MonoBehaviour {
          b = Random.Range(0, 20);
         // random c
         right = Random.Range(0f, 1f);
-        if(right >= 0.5)
-        {
-            c = x == 1 ? a + b : a - b;
-            answerTrue = true;
+        equal = Random.Range(0f, 1f);
+        // ra dau =
+        if(equal < 0.6f)
+        {    // return true
+            if (right >= 0.6)
+            {
+                c = x == 1 ? a + b : a - b;
+                answerTrue = true;
+            }
+            //return false
+            else if(right < 0.6 && right > 0.35 )
+            {
+                answerTrue = false;
+                offset = Random.Range(-3, 4);
+                if (offset == 0) offset = -4;
+                c = x == 1 ? a + b + offset : a - b + offset;
+            }
+            else
+            {
+                answerTrue = false;
+                c = x == 1 ? -(a + b)  : b - a ;
+            }
+            text.text = a + " " + t + " " + b + " " + "=" + " " + c;
         }
+        // ra dau =
         else
         {
-            answerTrue = false;
-            offset = Random.Range(-3, 4);
-            if (offset == 0) offset = -4;
-            c = x == 1 ? a + b + offset : a - b + offset;
+            if (right >= 0.5)
+            {
+                c = x == 1 ? a + b : a - b;
+                answerTrue = false;
+            }
+            else if(right < 0.5 && right > 0.2)
+            {
+                answerTrue = true;
+                offset = Random.Range(-3, 4);
+                if (offset == 0) offset = -4;
+                c = x == 1 ? a + b + offset : a - b + offset;
+            }
+            else{
+                answerTrue = true;
+                c = x == 1 ? -(a + b)  : b - a ;
+            }
+            text.text = a + " " + t + " " + b + " " + "!=" + " " + c;
         }
-        text.text = a + " " + t + " " + b + " " + "=" + " " + c;
+        
         mau1 = Random.Range(0, 3);
         mau2 = Random.Range(0, 3);
     }
 
     public void Lose()
     {
+        
         scoreEndGame.text = "" + score;
         Time.timeScale = 0;
         int oldBestScore = ScoreManager.instance.getHighScore();
@@ -72,6 +108,7 @@ public class Controller : MonoBehaviour {
         }
 
         losePanel.gameObject.SetActive(true);
+        MathTextEndGame.text = mathText.text;
         BestScore.text = "" + ScoreManager.instance.getHighScore();
     }
 
@@ -80,6 +117,13 @@ public class Controller : MonoBehaviour {
         
         Application.LoadLevel("GAmePlay");
         Time.timeScale = 1;
+    }
+
+   
+
+    public void _returnMenu()
+    {
+        Application.LoadLevel("Start");
     }
 
 	void Update () {

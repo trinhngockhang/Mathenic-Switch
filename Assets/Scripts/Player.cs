@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class Player : MonoBehaviour {
-
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip ping, dead, backgroundMusic;
     public SpriteRenderer mySprite;
     private Vector3 mousePosition;
     private float moveSpeedMouse = 0.1f;
@@ -28,7 +31,12 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-      
+      if(transform.position.y < -4.86)
+        {
+            audioSource.PlayOneShot(dead);
+            Controller.instance.Lose();
+        }
+
         if (Input.GetMouseButton(0))
         {
             mousePosition = Input.mousePosition;
@@ -57,16 +65,19 @@ public class Player : MonoBehaviour {
             Answer ans = collision.gameObject.GetComponent<Answer>();
             if(ans.right == Controller.instance._getBool() && color == ans.color)
             {
+                audioSource.PlayOneShot(ping);
                 Destroy(collision.gameObject);
                 Controller.instance._setRandomMath(Controller.instance.mathText);
                 _setColor();
                 Controller.instance.score += 1;
-                Trap trap = ans.gameObject.GetComponentInParent<Trap>();
-                trap.instance.changeTag(trap.instance.answerArr);
+                
             }
             else {
+                audioSource.PlayOneShot(dead);
                 Controller.instance.Lose();
             }
+            Trap trap = ans.gameObject.GetComponentInParent<Trap>();
+            trap.instance.changeTag(trap.instance.answerArr);
         }
     }
 }
